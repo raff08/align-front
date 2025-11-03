@@ -1,0 +1,19 @@
+@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== Estilos globais opcionais ===== */
+
+body {
+  @apply font-sans text-gray-900 bg-gray-50 dark:bg-gray-900 dark:text-gray-100;
+}
+
+/* Classes utilitárias personalizadas */
+.btn-primary {
+  @apply bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors;
+}
+
+.input-default {
+  @apply border border-gray-300 rounded-lg p-2;
+}
