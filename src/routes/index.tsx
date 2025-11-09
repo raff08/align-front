@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
-import { Home } from "../components/pages/home";
-import { Login } from "../components/pages/login";
+import Signup from "../components/pages/signup";
+import Login from "../components/pages/login";
+import HomePage from "../components/pages/homePage";
 
 export function AppRoutes() {
   return (
@@ -8,8 +9,9 @@ export function AppRoutes() {
 
       <main className="flex-1">
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/home" element={<HomePage />} />
         </Routes>
       </main>
 
