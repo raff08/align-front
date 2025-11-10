@@ -60,7 +60,7 @@ export default function ProfilePage() {
 
         <section>
           <Button 
-            onClick={() => navigate("/login")}
+            onClick={() => navigate("/")}
             variant="secondary" 
             className="w-full bg-red-900 bg-opacity-50 text-red-300 hover:bg-opacity-70"
           >
