@@ -6,9 +6,10 @@ import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import { SettingsItem } from '../molecules/settingsItems';
 import { BottomNavbar } from '../organisms/bottomNavBar';
 import { Button } from '../atoms/button';
+import { useNavigate } from 'react-router-dom';
 
 export default function ProfilePage() {
-
+  const navigate = useNavigate();
   const userA = { name: "Maria" };
   const userB = { name: "Thalles" };
 
@@ -59,6 +60,7 @@ export default function ProfilePage() {
 
         <section>
           <Button 
+            onClick={() => navigate("/login")}
             variant="secondary" 
             className="w-full bg-red-900 bg-opacity-50 text-red-300 hover:bg-opacity-70"
           >

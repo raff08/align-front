@@ -15,6 +15,7 @@ export const LoginForm: React.FC = () => {
 
   const handleSubmit = () => {
     console.log("Login:", formData);
+    navigate("/home")
   };
 
   const handleChange = (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {

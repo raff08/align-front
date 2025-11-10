@@ -15,6 +15,7 @@ export const SignupForm: React.FC = () => {
 
   const handleSubmit = () => {
     console.log("Cadastro:", formData);
+    navigate("/home")
   };
 
   const navigate = useNavigate();
