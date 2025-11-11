@@ -6,104 +6,119 @@ import { BottomNavbar } from '../organisms/bottomNavBar';
 import { AddGoalModal } from '../organisms/modals/addGoalModal';
 import { AddMoneyModal } from '../organisms/modals/addMoneyModal';
 import AddIcon from '@mui/icons-material/Add';
+import SettingsIcon from '@mui/icons-material/Settings';
 import type { Goal } from '../../models/goals';
 
 export default function HomePage() {
-  const [goals, setGoals] = useState<Goal[]>([
-    { 
-      id: 1, 
-      icon: "✈️", 
-      title: "Lua de Mel", 
-      current: 7500, 
-      total: 15000 
-    },
-    { 
-      id: 2, 
-      icon: "💍", 
-      title: "Buffet Casamento", 
-      current: 8000, 
-      total: 10000 
-    },
-    { 
-      id: 3, 
-      icon: "🏡", 
-      title: "Entrada Apartamento", 
-      current: 5000, 
-      total: 20000 
-    },
-  ]);
+	const [goals, setGoals] = useState<Goal[]>([
+		{
+			id: 1,
+			icon: '✈️',
+			title: 'Lua de Mel',
+			current: 7500,
+			total: 15000,
+		},
+		{
+			id: 2,
+			icon: '💍',
+			title: 'Buffet Casamento',
+			current: 12000,
+			total: 10000,
+		},
+		{
+			id: 3,
+			icon: '🏡',
+			title: 'Entrada Apartamento',
+			current: 5000,
+			total: 20000,
+		},
+	]);
 
-  const [showAddGoalModal, setShowAddGoalModal] = useState(false);
-  const [showAddMoneyModal, setShowAddMoneyModal] = useState(false);
-  const [selectedGoal, setSelectedGoal] = useState<Goal | null>(null);
+	const [showAddGoalModal, setShowAddGoalModal] = useState(false);
+	const [showAddMoneyModal, setShowAddMoneyModal] = useState(false);
+	const [selectedGoal, setSelectedGoal] = useState<Goal | null>(null);
 
-  const handleAddGoal = (newGoal: Omit<Goal, 'id'>) => {
-    const goal: Goal = {
-      ...newGoal,
-      id: Math.max(...goals.map(g => g.id), 0) + 1,
-      current: 0
-    };
-    setGoals([...goals, goal]);
-    setShowAddGoalModal(false);
-  };
+	const handleAddGoal = (newGoal: Omit<Goal, 'id'>) => {
+		const goal: Goal = {
+			...newGoal,
+			id: Math.max(...goals.map((g) => g.id), 0) + 1,
+			current: 0,
+		};
+		setGoals([...goals, goal]);
+		setShowAddGoalModal(false);
+	};
 
-  const handleAddMoney = (goalId: number, amount: number) => {
-    setGoals(goals.map(goal => 
-      goal.id === goalId 
-        ? { ...goal, current: Math.min(goal.current + amount, goal.total) }
-        : goal
-    ));
-    setShowAddMoneyModal(false);
-    setSelectedGoal(null);
-  };
+	const handleAddMoney = (goalId: number, amount: number) => {
+		setGoals(
+			goals.map((goal) =>
+				goal.id === goalId
+					? { ...goal, current: Math.min(goal.current + amount, goal.total) }
+					: goal
+			)
+		);
+		setShowAddMoneyModal(false);
+		setSelectedGoal(null);
+	};
 
-  const handleGoalClick = (goal: Goal) => {
-    setSelectedGoal(goal);
-    setShowAddMoneyModal(true);
-  };
+	const handleGoalClick = (goal: Goal) => {
+		setSelectedGoal(goal);
+		setShowAddMoneyModal(true);
+	};
 
-  return (
-    <div className="min-h-screen bg-[#3A483E] text-white font-mulish pb-24">
-      <div className="p-6">
-        
-        <HomeHeader />
-        
-        <BalanceSection balance="R$ 10.000,00" />
+	return (
+		<div className="min-h-screen bg-[#3A483E] text-white font-mulish pb-24">
+			<div className="p-6">
+				<HomeHeader />
 
-        <div className="flex justify-between items-center mb-4">
-          <h3 className="text-xl font-semibold">Minhas Metas</h3>
-          <button
-            onClick={() => setShowAddGoalModal(true)}
-            className="bg-[#7C9885] hover:bg-[#6a8573] text-white rounded-full p-2 transition-colors"
-            aria-label="Adicionar meta"
-          >
-            <AddIcon />
-          </button>
-        </div>
+				<BalanceSection balance="R$ 10.000,00" />
+				<div className="bg-[#3d4e4a] p-4 rounded-lg my-4 flex items-center justify-between">
+					{/* 1. Grupo da Esquerda (Ícone e Texto) */}
+					<div className="flex items-center gap-3">
+						<span className="text-2xl">💡</span>
+						<span className="font-semibold text-sm opacity-90">
+							Lembrete: dia 10 é dia de depositar em nossa poupança
+						</span>
+					</div>
 
-        <GoalsList goals={goals} onGoalClick={handleGoalClick} />
+					{/* 2. Botão da Direita (Engrenagem) */}
+					<button
+						onClick={() => {
+							/* Lógica para mudar a data virá aqui */
+						}}
+						className="text-white opacity-70 hover:opacity-100"
+						aria-label="Configurar lembrete">
+						<SettingsIcon />
+					</button>
+				</div>
+				<div className="flex justify-between items-center mb-4">
+					<h3 className="text-xl font-semibold">Minhas Metas</h3>
+					<button
+						onClick={() => setShowAddGoalModal(true)}
+						className="bg-[#7C9885] hover:bg-[#6a8573] text-white rounded-full p-2 transition-colors"
+						aria-label="Adicionar meta">
+						<AddIcon />
+					</button>
+				</div>
 
-      </div>
+				<GoalsList goals={goals} onGoalClick={handleGoalClick} />
+			</div>
 
-      <BottomNavbar />
+			<BottomNavbar />
 
-      {showAddGoalModal && (
-        <AddGoalModal
-          onClose={() => setShowAddGoalModal(false)}
-          onSubmit={handleAddGoal}
-        />
-      )}
+			{showAddGoalModal && (
+				<AddGoalModal onClose={() => setShowAddGoalModal(false)} onSubmit={handleAddGoal} />
+			)}
 
-      {showAddMoneyModal && selectedGoal && (
-        <AddMoneyModal
-          goal={selectedGoal}
-          onClose={() => {
-            setShowAddMoneyModal(false);
-            setSelectedGoal(null);
-          }}
-          onSubmit={handleAddMoney}
-        />
-      )}
-    </div>
-  );
+			{showAddMoneyModal && selectedGoal && (
+				<AddMoneyModal
+					goal={selectedGoal}
+					onClose={() => {
+						setShowAddMoneyModal(false);
+						setSelectedGoal(null);
+					}}
+					onSubmit={handleAddMoney}
+				/>
+			)}
+		</div>
+	);
 }
